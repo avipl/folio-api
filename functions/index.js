@@ -25,6 +25,8 @@ const authDomain = defineString("AUTH_DOMAIN");
 const storageBucket = defineString("STORAGE_BUCKET");
 const messagingSenderId = defineString("MESSAGING_SENDER_ID");
 const appId = defineString("APP_ID");
+const secret = defineSecret("CAPTCHA_SECRET");
+
 const firebaseConfig = {
   apiKey: apiKey,
   authDomain: authDomain,
@@ -47,7 +49,6 @@ function appCheckVerification(req, res) {
       res.status(401).send({error: 'Unautorized'});
     }
   
-    const secret = '6LfFIsQlAAAAAFUTWakDGSxzJCTKgf8nOGca4SoG';
     request({
       "method": 'POST',
       "url": 'https://recaptcha.google.com/recaptcha/api/siteverify',
