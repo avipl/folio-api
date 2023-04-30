@@ -12,7 +12,7 @@ const apis = express();
 const gitapis = express();
 gitapis.use(cors({origin: true}));
 
-const appCheck = defineBoolean("APP_CHECK");
+const appCheck = defineBoolean("APP_CHECK"); //also used as is_prod
 if(appCheck.value()) {
   apis.options('/get_projs', cors({origin: "https://avi-portfolio.net"}))
   apis.use(cors({origin: "https://avi-portfolio.net"}))
@@ -150,6 +150,8 @@ function pullRepoData(gitProjName){
 }
 
 function verifySignature(req){
+  if(!appCheck.value()) return true;
+
   let sign = Buffer.from(req.header('X-Hub-Signature-256'), 'utf8');
 
   let hmac = crypto.createHmac('sha256', signKey.value());
@@ -182,8 +184,6 @@ gitapis.post('/update_data', (req, res) => {
 });
 
 function getProjData(req, res){
-  res.header('Access-Control-Allow-Origin', 'https://avi-portfolio.net');
-
   const result_prom = admin.firestore().collection(collectionName).get();
   result_prom.then(result => {
     if(result.size){
@@ -215,6 +215,8 @@ function getProjData(req, res){
 apis.get('/get_projs', (req, res) => {
   if(appCheck.value()){
     appCheckVerification(req, res).then(success => {
+      res.header('Access-Control-Allow-Origin', 'https://avi-portfolio.net');
+
       getProjData(req, res);
     }).catch(err => {
       functions.logger.warn('Failed captcha verification.', err)
