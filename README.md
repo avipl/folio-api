@@ -14,13 +14,13 @@ Visit [https://avi-portfolio.net](https://avi-portfolio.net)
 
 # Fetures
 
-> To protect public API, captcha token is verified before processing the request. 
-> Allows hosting frontend and backend on different hardware. For faster page loading, backend can be replicated all over the globe in different continents.
+- To protect public API, captcha token is verified before processing the request. 
+- Allows hosting frontend and backend on different hardware. For faster page loading, backend can be replicated all over the globe in different continents.
 
 
 ## Spam Protection
 
 As this website doesn't require users to authenticate. Obviously, there was no way to protect backend APIs. Hence, I intgrated the [reCaptcha-v3](https://google.com) 
 
-> The API used to fetch the data verifies the captcha information before processing the request.
-> The API that responds to GitHub hook, uses a shared secret and [other security measures](https://docs.github.com/en/webhooks-and-events/webhooks/securing-your-webhooks)
+- The API used to fetch the data verifies the captcha information before processing the request.
+- The API that responds to GitHub hook, uses a shared secret and [other security measures](https://docs.github.com/en/webhooks-and-events/webhooks/securing-your-webhooks)
